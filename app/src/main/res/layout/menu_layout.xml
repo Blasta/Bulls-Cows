@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="288dp"
+        android:background="@drawable/bulls">
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffeddbc2">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/new_game"
+            android:id="@+id/button_newgame"
+            android:nestedScrollingEnabled="false"
+            android:onClick="onClick"
+            android:background="@drawable/bg_button"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about"
+            android:id="@+id/button_about"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onClick"
+            android:background="@drawable/bg_button"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/exit"
+            android:id="@+id/button_exit"
+            android:onClick="onClick"
+            android:background="@drawable/bg_button"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>
