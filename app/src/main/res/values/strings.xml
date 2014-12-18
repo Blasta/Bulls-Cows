@@ -7,6 +7,24 @@
     <string name="new_game">Новая игра</string>
     <string name="about">Правила игры</string>
     <string name="thinkof_label">Загадайте число</string>
+    <string name="win_title">Победа!</string>
+    <string name="win_text">Поздравляем! Вы победили!</string>
+    <string name="newgame_thinkof_label">Загадайте число</string>
+    <string name="newgame_thinkof_button">Загадать</string>
+    <string name="newgame_thinkof_or">Или:</string>
+    <string name="newgame_thinkof_random_button">Загадать случайное число</string>
+    <string name="dlg_new_game">Новая игра</string>
+    <string name="dlg_menu">Выйти в меню</string>
+    <string name="dlg_exit">Завершить игру</string>
+    <string name="game_guess">Ваш вариант</string>
+    <string name="game_check">Проверить</string>
+    <string name="game_bulls">Быки:</string>
+    <string name="game_cows">Коровы:</string>
+    <string name="alert_digitsnotdifferent">Все цифры должны быть различными!</string>
+    <string name="aler_digits_already_guessed">Число уже использовалось !</string>
+    <string name="lose_title">Неудача</string>
+    <string name="lose_text">Вы проиграли :(</string>
+    <string name="lose_answer">Правльный ответ: </string>
     <string name="exit">Выход</string>
      <string name="about_rules"><b>Правила:</b>\nЗагадывается четырехзначное число, после чего вы должны угадать
         его за 10 или менее попыток. Цифры от 0 до 9 в числе не повторяются,

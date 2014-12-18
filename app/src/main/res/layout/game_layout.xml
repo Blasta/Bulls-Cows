@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="20dp"
+    android:id="@+id/game_main_layout">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:id="@+id/game_pickers_layout"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/game_guess"
+            android:id="@+id/game_guess_label"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/linearLayout">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/game_space_left"
+                android:layout_weight="0.25"/>
+
+            <NumberPicker
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/game_numberPicker0"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/game_space01"
+                android:layout_weight="0.25"/>
+
+            <NumberPicker
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/game_numberPicker1"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/game_space12"
+                android:layout_weight="0.25"/>
+
+            <NumberPicker
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/game_numberPicker2"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/game_space23"
+                android:layout_weight="0.25"/>
+
+            <NumberPicker
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/game_numberPicker3"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/game_space_right"
+                android:layout_weight="0.25"/>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:id="@+id/space"/>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/game_check"
+            android:id="@+id/game_check_button"
+            android:onClick="onClick"/>
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:id="@+id/space1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:id="@+id/game_guesses_layout">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/game_bulls"
+                android:id="@+id/game_bulls_label"/>
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/game_bulls_bar"
+                android:rating="0"
+                android:numStars="4"
+                style="@android:style/Widget.Holo.Light.RatingBar.Indicator"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/game_cows"
+                android:id="@+id/game_cows_label"/>
+
+            <RatingBar
+                style="@android:style/Widget.Holo.Light.RatingBar.Indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/game_cows_bar"
+                android:rating="0"
+                android:numStars="4"/>
+
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/game_guesses"/>
+    </LinearLayout>
+
+</LinearLayout>
