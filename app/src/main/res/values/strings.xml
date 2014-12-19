@@ -5,14 +5,15 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="new_game">Новая игра</string>
+    <string name="menu_start">Начать игру</string>
     <string name="about">Правила игры</string>
     <string name="thinkof_label">Загадайте число</string>
     <string name="win_title">Победа!</string>
     <string name="win_text">Поздравляем! Вы победили!</string>
     <string name="newgame_thinkof_label">Загадайте число</string>
-    <string name="newgame_thinkof_button">Загадать</string>
+    <string name="newgame_thinkof_button">Играть вдвоем \n (нужно загадать число)</string>
     <string name="newgame_thinkof_or">Или:</string>
-    <string name="newgame_thinkof_random_button">Загадать случайное число</string>
+    <string name="newgame_thinkof_random_button">Играть одному</string>
     <string name="dlg_new_game">Новая игра</string>
     <string name="dlg_menu">Выйти в меню</string>
     <string name="dlg_exit">Завершить игру</string>

@@ -8,8 +8,9 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="288dp"
-        android:background="@drawable/bulls">
+        android:layout_height="365dp"
+        android:background="@drawable/bulls"
+        android:id="@+id/linearLayout">
     </LinearLayout>
 
     <LinearLayout
@@ -19,32 +20,32 @@
         android:background="#ffeddbc2">
 
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:text="@string/new_game"
             android:id="@+id/button_newgame"
             android:nestedScrollingEnabled="false"
             android:onClick="onClick"
             android:background="@drawable/bg_button"
-            android:layout_weight="1"/>
+            android:layout_gravity="center_horizontal"/>
 
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="291dp"
             android:layout_height="wrap_content"
             android:text="@string/about"
             android:id="@+id/button_about"
             android:layout_gravity="center_horizontal"
             android:onClick="onClick"
             android:background="@drawable/bg_button"
-            android:layout_weight="1"/>
+            />
 
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="288dp"
             android:layout_height="wrap_content"
             android:text="@string/exit"
             android:id="@+id/button_exit"
             android:onClick="onClick"
             android:background="@drawable/bg_button"
-            android:layout_weight="1"/>
+            android:layout_gravity="center_horizontal"/>
     </LinearLayout>
 </LinearLayout>

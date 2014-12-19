@@ -24,50 +24,52 @@ import java.util.ArrayList;
 /**
  * Created by 1 on 18.12.2014.
  */
-public class GameActivity extends GameNewGameActivity{
-
+public class GameActivity extends GameNewGameActivity {
     public static final ArrayList<String> list = new ArrayList<String>();
     private ArrayAdapter<String> adapter;
 
     private RatingBar bulls_bar;
     private RatingBar cows_bar;
 
-    private ListView guessesList;
+    private ListView guesseslist;
 
-    private LinearLayout pickersLayout;
-    private LinearLayout guessesLayout;
-    private LinearLayout mainLayout;
+    private LinearLayout pickerslayout;
+    private LinearLayout guesseslayout;
+    private LinearLayout mainlayout;
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
-        int[]numpickersId = {R.id.game_numberPicker0, R.id.game_numberPicker1, R.id.game_numberPicker2, R.id.game_numberPicker3};
-                super.onCreate(savedInstanceState, R.layout.game_layout,R.id.game_guess_label,numpickersId);
+    public void onCreate(Bundle savedInstanceState) {
+        int[] numpickerIds = {R.id.game_numberPicker0, R.id.game_numberPicker1, R.id.game_numberPicker2, R.id.game_numberPicker3};
+        super.onCreate(savedInstanceState, R.layout.game_layout, R.id.game_guess_label, numpickerIds);
 
-        pickersLayout = (LinearLayout)findViewById(R.id.game_pickers_layout);
-        guessesLayout = (LinearLayout)findViewById(R.id.game_guesses_layout);
-        mainLayout = (LinearLayout)findViewById(R.id.game_main_layout);
+        //orientation change
 
-        guessesList = (ListView)findViewById(R.id.game_guesses);
+        pickerslayout = (LinearLayout) findViewById(R.id.game_pickers_layout);
+        guesseslayout = (LinearLayout) findViewById(R.id.game_guesses_layout);
+        mainlayout = (LinearLayout) findViewById(R.id.game_main_layout);
+
+        bulls_bar = (RatingBar) findViewById(R.id.game_bulls_bar);
+        cows_bar = (RatingBar) findViewById(R.id.game_cows_bar);
+
+        guesseslist = (ListView) findViewById(R.id.game_guesses);
+
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
-        guessesList.setAdapter(adapter);
-        guessesList.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-        guessesList.setOnItemClickListener(MyItemClickListener);
+        guesseslist.setAdapter(adapter);
+        guesseslist.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 
-        bulls_bar = (RatingBar)findViewById(R.id.game_bulls_bar);
-        cows_bar = (RatingBar)findViewById(R.id.game_cows_bar);
+        guesseslist.setOnItemClickListener(MyItemClickListener);
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            mainLayout.setOrientation(LinearLayout.HORIZONTAL);
-            guessesLayout.setOrientation(LinearLayout.VERTICAL);
-            pickersLayout.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.f));
-            pickersLayout.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.f));
-        }else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            mainLayout.setOrientation(LinearLayout.VERTICAL);
-            guessesLayout.setOrientation(LinearLayout.HORIZONTAL);
-            pickersLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.f));
-            guessesLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0,1.f));
-
-    }
+            mainlayout.setOrientation(LinearLayout.HORIZONTAL);
+            guesseslayout.setOrientation(LinearLayout.VERTICAL);
+            pickerslayout.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.FILL_PARENT, 1.f));
+            guesseslayout.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.FILL_PARENT, 1.f));
+        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mainlayout.setOrientation(LinearLayout.VERTICAL);
+            guesseslayout.setOrientation(LinearLayout.HORIZONTAL);
+            pickerslayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 0, 1.f));
+            guesseslayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 0, 1.f));
+        }
 
         if (GameNewGameActivity.game.getIterationsCount() <= 0)
             bulls_bar.setRating(0);
@@ -76,50 +78,53 @@ public class GameActivity extends GameNewGameActivity{
 
         if (GameNewGameActivity.game.getIterationsCount() <= 0)
             cows_bar.setRating(0);
-        cows_bar.setRating(GameNewGameActivity.game.getBulls(GameNewGameActivity.game.getGuess(GameNewGameActivity.game.getIterationsCount() - 1)));
+        else
+            cows_bar.setRating(GameNewGameActivity.game.getCows(GameNewGameActivity.game.getGuess(GameNewGameActivity.game.getIterationsCount() - 1)));
+
     }
 
-    final DialogInterface.OnClickListener MyDialogClickListener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int id) {
-            Intent intent;
-            switch (id){
-                case DialogInterface.BUTTON_POSITIVE:
-                    intent = new Intent(GameActivity.this,NewGameActivity.class);
-                    startActivity(intent);
-                    GameActivity.this.finish();
-                    break;
-                case DialogInterface.BUTTON_NEUTRAL:
-                    GameActivity.this.finish();
-                    break;
+    public void win() {
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(300);
 
-            }
-        }
-    };
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.win_title);
+        alert.setMessage(R.string.win_text);
+        alert.setPositiveButton(R.string.new_game, MyDialogClickListener);
+        alert.setNeutralButton(R.string.dlg_exit, MyDialogClickListener);
+        alert.setCancelable(false);
+        alert.show();
+    }
 
-    final AdapterView.OnItemClickListener MyItemClickListener = new AdapterView.OnItemClickListener() {
-        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            bulls_bar.setRating(GameNewGameActivity.game.getBulls(GameNewGameActivity.game.getGuess(position)));
-            cows_bar.setRating(GameNewGameActivity.game.getBulls(GameNewGameActivity.game.getGuess(position)));
+    public void lose() {
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(300);
 
-            for (int i = 0; i < numpickers.length; i ++){
-                numpickers[i].setValue(GameNewGameActivity.game.getGuess(position)[i]);
-            }
-        }
-    };
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.lose_title);
+        alert.setMessage(
+                getString(R.string.lose_text) +
+                        "\n" +
+                        getString(R.string.lose_answer) +
+                        " " +
+                        GameNewGameActivity.game.getAnswer()
+        );
+        alert.setPositiveButton(R.string.new_game, MyDialogClickListener);
+        alert.setNeutralButton(R.string.dlg_exit, MyDialogClickListener);
+        alert.setCancelable(false);
+        alert.show();
+    }
 
-    public void onClick (View view){
-        switch (view.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.game_check_button:
-                if (GameNewGameActivity.game.addGuess(GameNewGameActivity.numpickersvalues)){
+                if (GameNewGameActivity.game.addGuess(GameNewGameActivity.numpickersvalues)) {
                     bulls_bar.setRating(GameNewGameActivity.game.getBulls(GameNewGameActivity.numpickersvalues));
-                    cows_bar.setRating(GameNewGameActivity.game.getBulls(GameNewGameActivity.numpickersvalues));
+                    cows_bar.setRating(GameNewGameActivity.game.getCows(GameNewGameActivity.numpickersvalues));
 
                     list.add(
                             String.valueOf(GameNewGameActivity.game.getIterationsCount()) +
-                                    ": "+
+                                    ": " +
                                     String.valueOf(GameNewGameActivity.numpickersvalues[0]) +
                                     String.valueOf(GameNewGameActivity.numpickersvalues[1]) +
                                     String.valueOf(GameNewGameActivity.numpickersvalues[2]) +
@@ -131,7 +136,7 @@ public class GameActivity extends GameNewGameActivity{
                         win();
                     else if (GameNewGameActivity.game.getIterationsCount() >= 10)
                         lose();
-                }else {
+                } else {
                     if (GameNewGameActivity.game.alreadyGuessed(GameNewGameActivity.numpickersvalues))
                         thinkof_label.setText(getString(R.string.aler_digits_already_guessed));
                     if (!GameNewGameActivity.game.allDigitsAreDifferent(GameNewGameActivity.numpickersvalues))
@@ -143,42 +148,36 @@ public class GameActivity extends GameNewGameActivity{
         }
     }
 
+    final DialogInterface.OnClickListener MyDialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int id) {
+            Intent intent;
+            switch (id) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    intent = new Intent(GameActivity.this, NewGameActivity.class);
+                    startActivity(intent);
+                    GameActivity.this.finish();
+                    break;
+                case DialogInterface.BUTTON_NEUTRAL:
+                    GameActivity.this.finish();
+                    break;
+            }
+        }
+    };
 
+    final AdapterView.OnItemClickListener MyItemClickListener = new AdapterView.OnItemClickListener() {
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            bulls_bar.setRating(GameNewGameActivity.game.getBulls(GameNewGameActivity.game.getGuess(position)));
+            cows_bar.setRating(GameNewGameActivity.game.getCows(GameNewGameActivity.game.getGuess(position)));
 
-    public void win(){
-        Vibrator v = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(300);
+            for (int i = 0; i < numpickers.length; i++) {
+                numpickers[i].setValue(GameNewGameActivity.game.getGuess(position)[i]);
+                GameNewGameActivity.numpickersvalues[i] = (GameNewGameActivity.game.getGuess(position)[i]);
+            }
+        }
+    };
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle(R.string.win_title);
-        alert.setMessage(R.string.win_text);
-        alert.setPositiveButton(R.string.dlg_new_game, MyDialogClickListener);
-        alert.setNeutralButton(R.string.dlg_exit, MyDialogClickListener);
-        alert.setCancelable(false);
-        alert.show();
-    }
-
-    public void lose() {
-
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(300);
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle(R.string.lose_title);
-
-        alert.setMessage(
-                getString(R.string.lose_text) +
-                        "\n" +
-                        getString(R.string.lose_answer) +
-                        " " +
-                        GameNewGameActivity.game.getAnswer()
-
-        );
-        alert.setPositiveButton(R.string.dlg_new_game, MyDialogClickListener);
-        alert.setNeutralButton(R.string.dlg_exit, MyDialogClickListener);
-        alert.setCancelable(false);
-        alert.show();
-
-    }
 
 }
