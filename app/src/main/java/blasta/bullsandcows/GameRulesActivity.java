@@ -10,14 +10,12 @@ import android.os.Vibrator;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.Random;
 
 /**
  * Created by 1 on 18.12.2014.
  */
-public abstract class GameNewGameActivity extends Activity implements Callback{
+public abstract class GameRulesActivity extends Activity implements Callback{
 
     protected static final Game game = new Game();
     protected final NumberPicker[]numpickers = new NumberPicker[4];
@@ -25,7 +23,7 @@ public abstract class GameNewGameActivity extends Activity implements Callback{
 
     protected int default_text_color;
     protected TextView thinkof_label;
-    protected boolean numberserror;
+    protected boolean numbers_error;
 
     Shaker shaker;
 
@@ -41,7 +39,7 @@ public abstract class GameNewGameActivity extends Activity implements Callback{
 
         thinkof_label = (TextView)findViewById(labelId);
         default_text_color = thinkof_label.getTextColors().getDefaultColor();
-        numberserror = false;
+        numbers_error = false;
 
         for (int i = 0; i < numpickers.length; i++) {
             numpickers[i].setMinValue(0);
@@ -62,10 +60,10 @@ public abstract class GameNewGameActivity extends Activity implements Callback{
                 numpickersvalues[i] = newVal;
             }
 
-            if (numberserror == true){
+            if (numbers_error == true){
                 thinkof_label.setText(getString(R.string.thinkof_label));
                 thinkof_label.setTextColor(ColorStateList.valueOf(default_text_color));
-                numberserror = false;
+                numbers_error = false;
             }
         }
     };

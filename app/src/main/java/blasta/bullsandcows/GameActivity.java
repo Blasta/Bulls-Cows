@@ -1,14 +1,12 @@
 package blasta.bullsandcows;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 /**
  * Created by 1 on 18.12.2014.
  */
-public class GameActivity extends GameNewGameActivity {
+public class GameActivity extends GameRulesActivity {
     public static final ArrayList<String> list = new ArrayList<String>();
     private ArrayAdapter<String> adapter;
 
@@ -71,15 +69,15 @@ public class GameActivity extends GameNewGameActivity {
             guesseslayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 0, 1.f));
         }
 
-        if (GameNewGameActivity.game.getIterationsCount() <= 0)
+        if (GameRulesActivity.game.getIterationsCount() <= 0)
             bulls_bar.setRating(0);
         else
-            bulls_bar.setRating(GameNewGameActivity.game.getBulls(GameNewGameActivity.game.getGuess(GameNewGameActivity.game.getIterationsCount() - 1)));
+            bulls_bar.setRating(GameRulesActivity.game.getBulls(GameRulesActivity.game.getGuess(GameRulesActivity.game.getIterationsCount() - 1)));
 
-        if (GameNewGameActivity.game.getIterationsCount() <= 0)
+        if (GameRulesActivity.game.getIterationsCount() <= 0)
             cows_bar.setRating(0);
         else
-            cows_bar.setRating(GameNewGameActivity.game.getCows(GameNewGameActivity.game.getGuess(GameNewGameActivity.game.getIterationsCount() - 1)));
+            cows_bar.setRating(GameRulesActivity.game.getCows(GameRulesActivity.game.getGuess(GameRulesActivity.game.getIterationsCount() - 1)));
 
     }
 
@@ -107,7 +105,7 @@ public class GameActivity extends GameNewGameActivity {
                         "\n" +
                         getString(R.string.lose_answer) +
                         " " +
-                        GameNewGameActivity.game.getAnswer()
+                        GameRulesActivity.game.getAnswer()
         );
         alert.setPositiveButton(R.string.new_game, MyDialogClickListener);
         alert.setNeutralButton(R.string.dlg_exit, MyDialogClickListener);
@@ -118,31 +116,31 @@ public class GameActivity extends GameNewGameActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.game_check_button:
-                if (GameNewGameActivity.game.addGuess(GameNewGameActivity.numpickersvalues)) {
-                    bulls_bar.setRating(GameNewGameActivity.game.getBulls(GameNewGameActivity.numpickersvalues));
-                    cows_bar.setRating(GameNewGameActivity.game.getCows(GameNewGameActivity.numpickersvalues));
+                if (GameRulesActivity.game.addGuess(GameRulesActivity.numpickersvalues)) {
+                    bulls_bar.setRating(GameRulesActivity.game.getBulls(GameRulesActivity.numpickersvalues));
+                    cows_bar.setRating(GameRulesActivity.game.getCows(GameRulesActivity.numpickersvalues));
 
                     list.add(
-                            String.valueOf(GameNewGameActivity.game.getIterationsCount()) +
+                            String.valueOf(GameRulesActivity.game.getIterationsCount()) +
                                     ": " +
-                                    String.valueOf(GameNewGameActivity.numpickersvalues[0]) +
-                                    String.valueOf(GameNewGameActivity.numpickersvalues[1]) +
-                                    String.valueOf(GameNewGameActivity.numpickersvalues[2]) +
-                                    String.valueOf(GameNewGameActivity.numpickersvalues[3])
+                                    String.valueOf(GameRulesActivity.numpickersvalues[0]) +
+                                    String.valueOf(GameRulesActivity.numpickersvalues[1]) +
+                                    String.valueOf(GameRulesActivity.numpickersvalues[2]) +
+                                    String.valueOf(GameRulesActivity.numpickersvalues[3])
                     );
                     adapter.notifyDataSetChanged();
 
-                    if (GameNewGameActivity.game.checkGuess(GameNewGameActivity.numpickersvalues))
+                    if (GameRulesActivity.game.checkGuess(GameRulesActivity.numpickersvalues))
                         win();
-                    else if (GameNewGameActivity.game.getIterationsCount() >= 10)
+                    else if (GameRulesActivity.game.getIterationsCount() >= 10)
                         lose();
                 } else {
-                    if (GameNewGameActivity.game.alreadyGuessed(GameNewGameActivity.numpickersvalues))
+                    if (GameRulesActivity.game.alreadyGuessed(GameRulesActivity.numpickersvalues))
                         thinkof_label.setText(getString(R.string.aler_digits_already_guessed));
-                    if (!GameNewGameActivity.game.allDigitsAreDifferent(GameNewGameActivity.numpickersvalues))
+                    if (!GameRulesActivity.game.allDigitsAreDifferent(GameRulesActivity.numpickersvalues))
                         thinkof_label.setText(getString(R.string.alert_digitsnotdifferent));
                     thinkof_label.setTextColor(ColorStateList.valueOf(0xffff0000));
-                    numberserror = true;
+                    numbers_error = true;
                 }
                 break;
         }
@@ -169,12 +167,12 @@ public class GameActivity extends GameNewGameActivity {
         @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            bulls_bar.setRating(GameNewGameActivity.game.getBulls(GameNewGameActivity.game.getGuess(position)));
-            cows_bar.setRating(GameNewGameActivity.game.getCows(GameNewGameActivity.game.getGuess(position)));
+            bulls_bar.setRating(GameRulesActivity.game.getBulls(GameRulesActivity.game.getGuess(position)));
+            cows_bar.setRating(GameRulesActivity.game.getCows(GameRulesActivity.game.getGuess(position)));
 
             for (int i = 0; i < numpickers.length; i++) {
-                numpickers[i].setValue(GameNewGameActivity.game.getGuess(position)[i]);
-                GameNewGameActivity.numpickersvalues[i] = (GameNewGameActivity.game.getGuess(position)[i]);
+                numpickers[i].setValue(GameRulesActivity.game.getGuess(position)[i]);
+                GameRulesActivity.numpickersvalues[i] = (GameRulesActivity.game.getGuess(position)[i]);
             }
         }
     };

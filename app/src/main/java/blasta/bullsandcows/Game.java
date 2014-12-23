@@ -22,7 +22,7 @@ public class Game {
         if (guessing == null)
             return "";
         else {
-            String result = new String();
+            String result = "";
             for (int i = 0; i < guessing.length; i++)
                 result += String.valueOf(guessing[i]);
             return result;
