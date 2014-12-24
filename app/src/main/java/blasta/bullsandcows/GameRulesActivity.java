@@ -60,7 +60,7 @@ public abstract class GameRulesActivity extends Activity implements Callback{
                 numpickersvalues[i] = newVal;
             }
 
-            if (numbers_error == true){
+            if (numbers_error){
                 thinkof_label.setText(getString(R.string.thinkof_label));
                 thinkof_label.setTextColor(ColorStateList.valueOf(default_text_color));
                 numbers_error = false;
@@ -86,6 +86,7 @@ public abstract class GameRulesActivity extends Activity implements Callback{
         shaker.stop();
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void shakingEvent() {
         Random random = new Random();
         boolean differentToAll;

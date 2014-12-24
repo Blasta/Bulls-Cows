@@ -16,7 +16,6 @@ public class Shaker {
     private float lastZ = 0;
 
     private float threshold = 2.5f;
-    private int shakeCountNeed = 4;
     private int shakeCount = 4;
 
     private SensorManager sensorManager;
@@ -71,6 +70,7 @@ public class Shaker {
 
         if (force > threshold){
             shakeCount++;
+            int shakeCountNeed = 4;
             if (shakeCount > shakeCountNeed){
                 shakeCount = 0;
                 lastX = 0;

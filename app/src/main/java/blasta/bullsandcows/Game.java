@@ -23,8 +23,8 @@ public class Game {
             return "";
         else {
             String result = "";
-            for (int i = 0; i < guessing.length; i++)
-                result += String.valueOf(guessing[i]);
+            for (int aGuessing : guessing)
+                result += String.valueOf(aGuessing);
             return result;
         }
     }
@@ -63,17 +63,9 @@ public class Game {
     }
 
     public boolean addGuess(int[] newGuess) {
-        if (
-                newGuess == null ||
-                        newGuess.length == 0 ||
-                        newGuess.length != guessing.length ||
-                        !allDigitsAreDifferent(newGuess) ||
-                        alreadyGuessed(newGuess)
-                )
-            return false;
-        else {
-            return guesses.add(Arrays.copyOf(newGuess, newGuess.length));
-        }
+        return !(newGuess == null || newGuess.length == 0 ||
+                newGuess.length != guessing.length || !allDigitsAreDifferent(newGuess) ||
+                alreadyGuessed(newGuess)) && guesses.add(Arrays.copyOf(newGuess, newGuess.length));
     }
 
     public int getBulls(int[] guess) {
@@ -108,7 +100,7 @@ public class Game {
 
     public boolean thinkOfNumber(int[] number) {
         if (number != null && allDigitsAreDifferent(number)) {
-            guesses = new ArrayList<int[]>();
+            guesses = new ArrayList<>();
 
             guessing = new int[number.length];
             System.arraycopy(number, 0, guessing, 0, number.length);

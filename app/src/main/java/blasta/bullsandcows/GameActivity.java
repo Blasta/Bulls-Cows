@@ -23,17 +23,11 @@ import java.util.ArrayList;
  * Created by 1 on 18.12.2014.
  */
 public class GameActivity extends GameRulesActivity {
-    public static final ArrayList<String> list = new ArrayList<String>();
+    public static final ArrayList<String> list = new ArrayList<>();
     private ArrayAdapter<String> adapter;
 
     private RatingBar bulls_bar;
     private RatingBar cows_bar;
-
-    private ListView guesseslist;
-
-    private LinearLayout pickerslayout;
-    private LinearLayout guesseslayout;
-    private LinearLayout mainlayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,16 +36,16 @@ public class GameActivity extends GameRulesActivity {
 
         //orientation change
 
-        pickerslayout = (LinearLayout) findViewById(R.id.game_pickers_layout);
-        guesseslayout = (LinearLayout) findViewById(R.id.game_guesses_layout);
-        mainlayout = (LinearLayout) findViewById(R.id.game_main_layout);
+        LinearLayout pickerslayout = (LinearLayout) findViewById(R.id.game_pickers_layout);
+        LinearLayout guesseslayout = (LinearLayout) findViewById(R.id.game_guesses_layout);
+        LinearLayout mainlayout = (LinearLayout) findViewById(R.id.game_main_layout);
 
         bulls_bar = (RatingBar) findViewById(R.id.game_bulls_bar);
         cows_bar = (RatingBar) findViewById(R.id.game_cows_bar);
 
-        guesseslist = (ListView) findViewById(R.id.game_guesses);
+        ListView guesseslist = (ListView) findViewById(R.id.game_guesses);
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
         guesseslist.setAdapter(adapter);
         guesseslist.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 
@@ -60,13 +54,13 @@ public class GameActivity extends GameRulesActivity {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             mainlayout.setOrientation(LinearLayout.HORIZONTAL);
             guesseslayout.setOrientation(LinearLayout.VERTICAL);
-            pickerslayout.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.FILL_PARENT, 1.f));
-            guesseslayout.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.FILL_PARENT, 1.f));
+            pickerslayout.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.f));
+            guesseslayout.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.f));
         } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             mainlayout.setOrientation(LinearLayout.VERTICAL);
             guesseslayout.setOrientation(LinearLayout.HORIZONTAL);
-            pickerslayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 0, 1.f));
-            guesseslayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, 0, 1.f));
+            pickerslayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.f));
+            guesseslayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.f));
         }
 
         if (GameRulesActivity.game.getIterationsCount() <= 0)
